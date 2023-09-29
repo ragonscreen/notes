@@ -1,0 +1,277 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+:root {
+    --clr-neutral-50: hsl(0, 0%, 98%);
+    --clr-neutral-100: hsl(240, 5%, 96%);
+    --clr-neutral-200: hsl(240, 6%, 90%);
+    --clr-neutral-300: hsl(240, 5%, 84%);
+    --clr-neutral-400: hsl(240, 5%, 65%);
+    --clr-neutral-500: hsl(240, 4%, 46%);
+    --clr-neutral-600: hsl(240, 5%, 34%);
+    --clr-neutral-700: hsl(240, 5%, 26%);
+    --clr-neutral-800: hsl(240, 4%, 16%);
+    --clr-neutral-900: hsl(240, 6%, 10%);
+    --clr-neutral-950: hsl(240, 10%, 4%);
+
+    --clr-primary: ;
+    --clr-accent: ;
+
+    --bxsh-100: 0 0 8px -4px var(--clr-neutral-600);
+    --bxsh-200: 0 4px 12px -2px var(--clr-neutral-950);
+
+    --bxsh-inset-100: inset 0 0 16px -4px var(--clr-neutral-950);
+
+    --lg-100:
+        linear-gradient(-45deg,
+            var(--clr-neutral-950),
+            var(--clr-neutral-800));
+    --lg-200:
+        linear-gradient(135deg,
+            var(--clr-neutral-950),
+            var(--clr-neutral-800));
+
+    --ff-100: -apple-system, BlinkMacSystemFont, 'Inter', system-ui, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+
+    --fz-25: 0.75rem;
+    --fz-50: 0.875rem;
+    --fz-100: 1rem;
+    --fz-200: 1.125rem;
+    --fz-300: 1.25rem;
+    --fz-400: 1.5rem;
+    --fz-500: 1.875rem;
+    --fz-600: 2.25rem;
+    --fz-700: 3rem;
+    --fz-800: 3.75rem;
+    --fz-900: 4.5rem;
+    --fz-950: 6rem;
+    --fz-1000: 8rem;
+}
+
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    /* background-color fallback */
+    background-color: var(--clr-neutral-950);
+    background: var(--lg-100);
+    color: var(--clr-neutral-100);
+    min-height: 100vh;
+    min-height: 100dvh;
+    font-family: var(--ff-100);
+}
+
+/* Nav */
+
+.nav {
+    display: flex;
+    justify-content: space-between;
+
+    /* background-color fallback */
+    background-color: var(--clr-neutral-900);
+    background: var(--lg-200);
+    width: 100%;
+    border-bottom: 1px solid var(--clr-neutral-800);
+    padding: 1rem 2rem;
+
+    position: fixed;
+    top: 0;
+    left: 0;
+
+    transition:
+        box-shadow 200ms,
+        border-bottom 200ms;
+}
+
+.nav-movable {
+    box-shadow: var(--bxsh-200);
+    border-bottom: 1px solid transparent;
+}
+
+.title {
+    font-size: var(--fz-600);
+    text-transform: capitalize;
+}
+
+.nav__btn-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.nav__btn {
+    display: grid;
+    place-items: center;
+
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+.nav__btn:focus-visible {
+    outline: 2px solid var(--clr-neutral-200);
+    outline-offset: 2px;
+}
+
+.btn {
+    background-color: var(--clr-neutral-900);
+    color: var(--clr-neutral-300);
+    box-shadow:
+        var(--bxsh-200),
+        var(--bxsh-inset-100);
+    font: inherit;
+    font-size: var(--fz-200);
+    border: 1px solid var(--clr-neutral-700);
+    border-radius: 8px;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+
+    transition: background-color 300ms, color 300ms;
+}
+
+.btn:hover {
+    background-color: var(--clr-neutral-400);
+    color: var(--clr-neutral-900);
+}
+
+.btn:active {
+    background-color: var(--clr-neutral-500);
+}
+
+.fa-gear,
+.bx-grid-alt {
+    color: var(--clr-neutral-300);
+    transition: color 300ms;
+}
+
+.fa-gear:hover,
+.bx-grid-alt:hover {
+    color: var(--clr-neutral-400);
+}
+
+.fa-gear {
+    font-size: var(--fz-400);
+}
+
+.bx-grid-alt {
+    font-size: var(--fz-500);
+}
+
+/* Main */
+
+main {
+    padding: 2rem 4rem;
+}
+
+.container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, 15rem);
+    grid-auto-rows: 12.5rem;
+    grid-auto-flow: dense;
+    justify-content: center;
+    gap: 1rem;
+
+    max-width: 68rem;
+    margin: 0 auto;
+}
+
+.container-narrow {
+    max-width: 15rem;
+}
+
+.note {
+    background-color: var(--clr-neutral-900);
+    box-shadow:
+        var(--bxsh-100),
+        var(--bxsh-inset-100);
+    border: 1px solid var(--clr-neutral-700);
+    border-radius: 12px;
+    padding: 1rem;
+}
+
+.note-large {
+    grid-row: span 2;
+}
+
+.note__title {
+    color: var(--clr-neutral-200);
+    margin-top: -0.35rem;
+    font-size: var(--fz-300);
+    line-height: 1.4em;
+}
+
+.note__content {
+    color: var(--clr-neutral-300);
+    margin-top: 0.5rem;
+    font-size: var(--fz-50);
+    line-height: 1.5em;
+    word-wrap: break-word;
+}
+
+.note__content {
+    display: -webkit-box;
+    -webkit-line-clamp: 16;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+/* New note */
+
+.new-note {
+    background-color: var(--clr-neutral-900);
+    color: var(--clr-neutral-100);
+    box-shadow:
+        var(--bxsh-100),
+        var(--bxsh-inset-100);
+    width: 90%;
+    max-width: 40rem;
+    margin: auto;
+    border: 1px solid var(--clr-neutral-700);
+    border-radius: 12px;
+    padding: 1rem 2rem;
+}
+
+/* Variables don't seem to work in dialog backdrops */
+
+.new-note::backdrop {
+    background:
+        linear-gradient(45deg,
+            hsl(240, 10%, 1%, 0.8),
+            hsl(240, 5%, 16%, 0.8));
+}
+
+.new-note__header {
+    font-size: var(--fz-500);
+}
+
+@media screen and (width < 625px) {
+    main {
+        padding: 1rem 2rem;
+    }
+
+    .title {
+        font-size: var(--fz-500);
+    }
+
+    .btn-new-note {
+        font-size: var(--fz-100);
+    }
+
+    .fa-gear {
+        font-size: var(--fz-300);
+    }
+
+    .container {
+        max-width: 15rem;
+    }
+
+    .btn-view {
+        display: none;
+    }
+
+}
