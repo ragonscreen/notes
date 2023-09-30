@@ -86,6 +86,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 
+
 // Display alert
 
 const alertBox = document.querySelector('.alert');
