@@ -18,21 +18,15 @@
         <h2 class="new-note__header">New Note</h2>
 
         <div class="new-note__info">
-            <h2 class="new-note__title">
-                Title
-            </h2>
-            <div class="new-note__content">
-                Note
-            </div>
+            <p class="new-note__title-desc">Add a title</p>
+            <h2 class="new-note__title" contenteditable="true"></h2>
+            <p class="new-note__content-desc">Take a note</p>
+            <div class="new-note__content" contenteditable="true"></div>
         </div>
 
         <div class="new-note__btn-container">
-            <button class="btn btn-close">
-                Cancel
-            </button>
-            <button class="btn btn-save">
-                Save
-            </button>
+            <button class="btn btn-save">Save</button>
+            <button class="btn btn-cancel">Cancel</button>
         </div>
     </dialog>
 
@@ -40,7 +34,10 @@
         <h1 class="title">my notes</h1>
 
         <div class="nav__btn-container">
-            <button class="btn nav__btn btn-new-note">New Note</button>
+            <button class="btn nav__btn btn-new-note" aria-label="create a new note">
+                <span class="btn-new-note__text">New Note</span>
+                <i class="btn-new-note__icon fa-solid fa-plus"></i>
+            </button>
             <button class="nav__btn btn-settings">
                 <i class="fa-solid fa-gear"></i>
             </button>
@@ -53,9 +50,11 @@
     <main class="main">
 
         <div class="container">
-            <div class="note">
+            <!-- <div class="note">
                 <h2 class="note__title">Title 1</h2>
-                <p class="note__content">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ex, a! Expedita ad
+                <p class="note__content">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ex, a! Expedita
+                    &nbsp; &nbsp; &nbsp;
+                    ad
                     commodi incidunt sed?</p>
             </div>
 
@@ -126,9 +125,11 @@
             <div class="note">
                 <h2 class="note__title">Title 11</h2>
                 <p class="note__content">Lorem ipsum, dolor sit amet consectetur adipisicing elit.</p>
-            </div>
+            </div> -->
         </div>
     </main>
+    <div class="alert">Alert</div>
+
 </body>
 
 </html>
