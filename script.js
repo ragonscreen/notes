@@ -52,8 +52,6 @@ const createNewNote = () => {
     DATABASE.push(noteInfo);
     createNoteElement(noteId, noteTitle, noteContent);
     console.log(DATABASE);
-
-    resetNote();
 };
 
 const resetNote = () => {
