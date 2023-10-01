@@ -1,6 +1,7 @@
 /**
  * <----- Main Functionality ----->
 */
+
 let DATABASE = [];
 
 /**
@@ -49,17 +50,15 @@ const displayNotes = () => {
 
 /**
  * Creates a new note, and pushes the info into `DATABASE`.
- * Also checks and replaces whether some special characters
- * have been input, in which case, it replaces them with their
- * escaped variants.
+ * Also checks and validates the text content.
 */
 
 const newNoteTitle = document.querySelector('.new-note__title');
 const newNoteContent = document.querySelector('.new-note__content');
 const createNewNote = () => {
     const noteId = new Date().getTime();
-    let noteTitle = escapeChars(newNoteTitle.innerText);
-    let noteContent = escapeChars(newNoteContent.innerText);
+    let noteTitle = validateContent(newNoteTitle.innerText);
+    let noteContent = validateContent(newNoteContent.innerText);
     console.log(noteContent);
 
     if (noteContent) {
@@ -79,7 +78,8 @@ const createNewNote = () => {
 /**
  * Creates a note element. (`div` with a class of `note` and
  * a unique `data-id`). Based on content, also checks whether
- * the note created should be large.
+ * the note created should be large. Along with that, adds
+ * delete functionality to each note.
 */
 
 const container = document.querySelector('.container');
@@ -103,17 +103,15 @@ const createNoteElement = (id, title, content) => {
 };
 
 /**
- * Delete functionality
+ * Deletes a note.
 */
 
 const deleteNote = element => {
     const deleteBtn = element.querySelector('.note__delete-btn');
     deleteBtn.addEventListener('click', () => {
         container.removeChild(element);
-        console.log(element.dataset.id);
         removeFromLocalStorage(element);
-
-        // updateLocalStorage(items);
+        displayAlert('note deleted', 'danger');
     });
 };
 
@@ -163,39 +161,43 @@ const removeFromLocalStorage = element => {
 /**
  * <----- Utility ----->
  *
- * 01. Replace characters with their escape variants.
- * 02. Replace escaped characters with their regular variants.
- * 03. Reset `new-note` info.
- * 04. Change note size based on content by toggling the `note-large` class.
+ * 01. Validates characters that have been input by changing to their
+ * escape variants. Correctly gauge the number of line breaks in the
+ * content. Also correctly assigns non-breaking spaces based on the content.
+ * 02. Resets `new-note` info.
+ * 03. Changes note size based on content by toggling the `note-large` class.
  * --> Note size is changed by identifying the pixel at the bottom
  * of the text container and it's parent.
 */
 
 // 01
-const escapeChars = text => {
-    return text.replace(/&/g, "&amp;")
+const validateContent = text => {
+    text = text.replace(/&/g, "&amp;")
         .replace(/</g, "&lt;")
         .replace(/>/g, "&gt;")
         .replace(/"/g, "&quot;")
-        .replace(/'/g, "&#39;");
+        .replace(/'/g, "&#39;")
+        .replace(/\n{2}/g, "\n") // correctly gauge number of new-line chars
+        .replace(/\n/g, "<br>");
+
+    // replace two or more spaces with a space and
+    // the rest with non-breaking spaces
+    text = text.replace(/\s{2,}/g, match => {
+        const len = match.length;
+        const breaks = '&nbsp;'.repeat(len - 1);
+        return ' ' + breaks;
+    });
+
+    return text;
 };
 
 // 02
-const unescapeChars = text => {
-    return text.replace(/&lt;/g, "<")
-        .replace(/&gt;/g, ">")
-        .replace(/&quot;/g, "\"")
-        .replace(/&#39;/g, "\'")
-        .replace(/&amp;/g, "&");
-};
-
-// 03
 const resetNote = () => {
     newNoteTitle.textContent = '';
     newNoteContent.textContent = '';
 };
 
-// 04
+// 03
 const checkNoteLength = element => {
     // 36 here is a bit of a magic number, for some reason the
     // bottom of the element shows up as higher up than expected
