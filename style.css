@@ -91,10 +91,10 @@ body {
 
     /* background-color fallback */
     background-color: var(--clr-neutral-900);
-    background: var(--lg-200);
+    /* background: var(--lg-200); */
     width: 100%;
     border-bottom: 1px solid var(--clr-neutral-800);
-    padding: 1rem 2rem;
+    padding: 1rem 2rem 1rem 1.75rem;
 
     position: fixed;
     top: 0;
@@ -112,6 +112,17 @@ body {
 }
 
 .title {
+    background-color: var(--clr-success-100);
+    --angle: 0;
+    background:
+        linear-gradient(var(--angle),
+            var(--clr-success-200),
+            var(--clr-danger-300));
+    background-size: 200%;
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    padding: 0 0.25rem;
     font-size: var(--fz-600);
     letter-spacing: -0.06em;
     text-transform: capitalize;
@@ -189,7 +200,7 @@ body {
 
 .fa-gear:hover,
 .bx-grid-alt:hover {
-    color: var(--clr-neutral-400);
+    color: var(--clr-info-300);
 }
 
 .fa-gear {
@@ -322,13 +333,18 @@ main {
     padding: 1rem 2rem;
 }
 
-/* Variables don't seem to work in dialog backdrops */
+/* Root variables don't work in dialog backdrops */
 
 .note-modal::backdrop {
-    background:
-        linear-gradient(45deg,
-            hsl(240, 10%, 1%, 0.8),
-            hsl(240, 5%, 16%, 0.8));
+    --angle: 45deg;
+    --clr-01: hsl(142, 77%, 73%, 0.3);
+    --clr-02: hsl(0, 94%, 82%, 0.4);
+
+    background-image:
+        linear-gradient(var(--angle),
+            var(--clr-01),
+            var(--clr-02));
+    backdrop-filter: blur(8px);
 }
 
 .note-modal__header {

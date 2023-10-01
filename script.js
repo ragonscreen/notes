@@ -187,7 +187,7 @@ const removeFromLocalStorage = element => {
 };
 
 /**
- * <----- Utility ----->
+ * <----- Utility Functions ----->
  *
  * 01. Validates characters that have been input by changing to their
  * escape variants. Correctly gauge the number of line breaks in the
@@ -244,6 +244,7 @@ const checkNoteLength = element => {
  * and removes the `border-bottom` by making it transparent.
  * 03. Toggle fixed width list display by toggling the
  * `container-narrow` class on `.container`.
+ * 04. Animate the gradient angle of the `title` for a cool effect.
 */
 
 // 01
@@ -264,3 +265,11 @@ const btnView = document.querySelector('.btn-view');
 btnView.addEventListener('click', () => {
     container.classList.toggle('container-narrow');
 });
+
+// 04
+const title = document.querySelector('.title');
+let angle = title.style.getPropertyValue('--angle');
+const changeColor = setInterval(() => {
+    angle++;
+    title.style.setProperty('--angle', `${angle}deg`);
+}, 40);
