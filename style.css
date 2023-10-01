@@ -214,7 +214,7 @@ main {
 }
 
 .note:hover {
-    background-color: var(--clr-neutral-950);
+    background-color: var(--clr-neutral-800);
     border: 1px solid var(--clr-neutral-600);
 }
 
@@ -298,6 +298,7 @@ main {
 
 .new-note__header {
     font-size: var(--fz-500);
+    text-transform: capitalize;
 }
 
 .new-note__info {
