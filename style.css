@@ -206,6 +206,7 @@ main {
     border: 1px solid var(--clr-neutral-700);
     border-radius: 12px;
     padding: 1rem;
+    cursor: pointer;
 }
 
 .note-large {
@@ -309,7 +310,7 @@ main {
     padding: 0.5rem 1rem;
     line-height: 1.4rem;
     word-wrap: break-word;
-    overflow-y: scroll;
+    overflow-y: auto;
 }
 
 .new-note__btn-container {
@@ -318,21 +319,6 @@ main {
 
     margin-top: 1rem;
 }
-
-/* .alert {
-    box-shadow: var(--bxsh-100);
-    width: fit-content;
-    margin: 0 auto;
-    border: 1px solid var(--clr-neutral-900);
-    border-radius: 4px;
-    padding: 0.5rem 1rem;
-    font-size: var(--fz-100);
-    text-align: center;
-    text-transform: capitalize;
-
-    position: fixed;
-    bottom: -10rem;
-} */
 
 .alert {
     background-color: var(--clr-neutral-400);

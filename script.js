@@ -3,10 +3,17 @@
 */
 const DATABASE = [];
 
-// Testing
+/**
+ * Displays notes on initial load.
+*/
 
 document.addEventListener('DOMContentLoaded', () => {
+    const items = getLocalStorage('notes');
+    items.forEach(item => {
+        DATABASE.push(item);
+    });
     console.log(DATABASE);
+    displayNotes();
 });
 
 const newNote = document.querySelector('.new-note');
@@ -16,8 +23,8 @@ const btnCancel = document.querySelector('.btn-cancel');
 
 /**
  * Main button functionalities.
- *
- */
+*/
+
 btnNewNote.addEventListener('click', () => {
     resetNote();
     newNote.showModal();
@@ -29,9 +36,16 @@ btnCancel.addEventListener('click', () => {
 
 btnSave.addEventListener('click', () => {
     createNewNote();
+    addToLocalStorage(JSON.stringify(DATABASE));
     displayAlert('note created', 'success');
     newNote.close();
 });
+
+const displayNotes = () => {
+    DATABASE.forEach(item => {
+        createNoteElement(item.id, item.title, item.content);
+    });
+};
 
 /**
  * Creates a new note, and pushes the info into `DATABASE`.
@@ -57,21 +71,15 @@ const createNewNote = () => {
             content: noteContent
         }
 
-        DATABASE.unshift(noteInfo);
+        DATABASE.push(noteInfo);
         console.log(DATABASE);
     }
 };
 
-// DATABASE.forEach(note => {
-//     displayNotes(note.id, note.title, note.content);
-// });
-
-
 /**
  * Creates a note element. (`div` with a class of `note` and
- * a unique `data-id`).
- * Based on content, also checks whether the note created
- * should be large.
+ * a unique `data-id`). Based on content, also checks whether
+ * the note created should be large.
 */
 
 const container = document.querySelector('.container');
@@ -91,9 +99,8 @@ const createNoteElement = (id, title, content) => {
 };
 
 /**
- * Displays an alert with custom text.
- * Adds a class to the alert box based on the type of alert
- * (info, success, danger).
+ * Displays an alert with custom text. Adds a class to the
+ * alert box based on the type of alert (info, success, danger).
 */
 
 const alertBox = document.querySelector('.alert');
@@ -105,6 +112,25 @@ const displayAlert = (text, action) => {
     setTimeout(() => {
         alertBox.classList.remove('alert-visible');
     }, 2000);
+};
+
+/**
+ * <----- Local Storage ----->
+ *
+ * 01. Get notes from localStorage.
+ * 02. Add new note to localStorage.
+*/
+
+// 01
+const getLocalStorage = key => {
+    return localStorage.getItem(key)
+        ? JSON.parse(localStorage.getItem(key))
+        : [];
+};
+
+// 02
+const addToLocalStorage = value => {
+    localStorage.setItem('notes', value);
 };
 
 /**
@@ -156,9 +182,8 @@ const checkNoteLength = element => {
  * <----- Secondary ----->
  *
  * 01. Add a `margin-top` to `main` based on the height of `nav`.
- * 02. Add the `nav-movable` class to `nav`.
- * --> This adds a `box-shadow` and removes the `border-bottom`
- * by making it transparent.
+ * 02. Add the `nav-movable` class to `nav`. This adds a `box-shadow`
+ * and removes the `border-bottom` by making it transparent.
  * 03. Toggle fixed width list display by toggling the
  * `container-narrow` class on `.container`.
 */
@@ -181,8 +206,3 @@ const btnView = document.querySelector('.btn-view');
 btnView.addEventListener('click', () => {
     container.classList.toggle('container-narrow');
 });
-
-// later on DOMcontentloaded ->
-
-// const noteContents = document.querySelectorAll('.note__content');
-// noteContents.forEach(noteContent => checkLength(noteContent));
