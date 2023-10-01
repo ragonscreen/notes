@@ -273,7 +273,7 @@ main {
 
 /* New note */
 
-.new-note {
+.note-modal {
     background-color: var(--clr-neutral-900);
     color: var(--clr-neutral-100);
     box-shadow:
@@ -289,35 +289,35 @@ main {
 
 /* Variables don't seem to work in dialog backdrops */
 
-.new-note::backdrop {
+.note-modal::backdrop {
     background:
         linear-gradient(45deg,
             hsl(240, 10%, 1%, 0.8),
             hsl(240, 5%, 16%, 0.8));
 }
 
-.new-note__header {
+.note-modal__header {
     font-size: var(--fz-500);
     text-transform: capitalize;
 }
 
-.new-note__info {
+.note-modal__info {
     margin-top: 1rem;
 }
 
-.new-note__info>*:focus-visible {
+.note-modal__info>*:focus-visible {
     outline: 2px solid var(--clr-neutral-200);
     outline-offset: 2px;
 }
 
-.new-note__info>p {
+.note-modal__info>p {
     color: var(--clr-neutral-400);
     margin-left: 0.5rem;
     font-size: var(--fz-50);
     font-weight: 300;
 }
 
-.new-note__title {
+.note-modal__title {
     background-color: var(--clr-neutral-800);
     color: var(--clr-neutral-200);
     box-shadow:
@@ -331,11 +331,11 @@ main {
     word-wrap: break-word;
 }
 
-.new-note__content-desc {
+.note-modal__content-desc {
     margin-top: 0.5rem;
 }
 
-.new-note__content {
+.note-modal__content {
     background-color: var(--clr-neutral-800);
     color: var(--clr-neutral-200);
     box-shadow:
@@ -351,7 +351,7 @@ main {
     overflow-y: auto;
 }
 
-.new-note__btn-container {
+.note-modal__btn-container {
     display: flex;
     gap: 0.5rem;
 
@@ -426,11 +426,11 @@ main {
         display: none;
     }
 
-    .new-note__title {
+    .note-modal__title {
         font-size: var(--fz-200);
     }
 
-    .new-note__content {
+    .note-modal__content {
         font-size: var(--fz-50);
     }
 }

@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', () => {
     displayNotes();
 });
 
-const newNote = document.querySelector('.new-note');
+const noteModal = document.querySelector('.note-modal');
 const btnNewNote = document.querySelector('.btn-new-note');
 const btnSave = document.querySelector('.btn-save');
 const btnCancel = document.querySelector('.btn-cancel');
@@ -28,18 +28,18 @@ const btnCancel = document.querySelector('.btn-cancel');
 
 btnNewNote.addEventListener('click', () => {
     resetNote();
-    newNote.showModal();
+    noteModal.showModal();
 });
 
 btnCancel.addEventListener('click', () => {
-    newNote.close();
+    noteModal.close();
 });
 
 btnSave.addEventListener('click', () => {
     createNewNote();
     updateLocalStorage(DATABASE);
     displayAlert('note created', 'success');
-    newNote.close();
+    noteModal.close();
 });
 
 const displayNotes = () => {
@@ -53,12 +53,12 @@ const displayNotes = () => {
  * Also checks and validates the text content.
 */
 
-const newNoteTitle = document.querySelector('.new-note__title');
-const newNoteContent = document.querySelector('.new-note__content');
+const noteModalTitle = document.querySelector('.note-modal__title');
+const noteModalContent = document.querySelector('.note-modal__content');
 const createNewNote = () => {
     const noteId = new Date().getTime();
-    let noteTitle = validateContent(newNoteTitle.innerText);
-    let noteContent = validateContent(newNoteContent.innerText);
+    let noteTitle = validateContent(noteModalTitle.innerText);
+    let noteContent = validateContent(noteModalContent.innerText);
     console.log(noteContent);
 
     if (noteContent) {
@@ -193,8 +193,8 @@ const validateContent = text => {
 
 // 02
 const resetNote = () => {
-    newNoteTitle.textContent = '';
-    newNoteContent.textContent = '';
+    noteModalTitle.textContent = '';
+    noteModalContent.textContent = '';
 };
 
 // 03
