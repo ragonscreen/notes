@@ -1,7 +1,7 @@
 /**
  * <----- Main Functionality ----->
 */
-const DATABASE = [];
+let DATABASE = [];
 
 /**
  * Displays notes on initial load.
@@ -36,7 +36,7 @@ btnCancel.addEventListener('click', () => {
 
 btnSave.addEventListener('click', () => {
     createNewNote();
-    addToLocalStorage(JSON.stringify(DATABASE));
+    updateLocalStorage(DATABASE);
     displayAlert('note created', 'success');
     newNote.close();
 });
@@ -91,11 +91,30 @@ const createNoteElement = (id, title, content) => {
     element.setAttributeNode(elementId);
     const noteHtml =
         `<h2 class="note__title">${title}</h2>
-        <p class="note__content">${content}</p>`;
+        <p class="note__content">${content}</p>
+        <button class="note__delete-btn">
+            <i class="fa-regular fa-trash-can"></i>
+        </button>`;
     element.innerHTML = noteHtml;
     container.prepend(element);
     const elementContent = element.querySelector('.note__content');
     checkNoteLength(elementContent);
+    deleteNote(element);
+};
+
+/**
+ * Delete functionality
+*/
+
+const deleteNote = element => {
+    const deleteBtn = element.querySelector('.note__delete-btn');
+    deleteBtn.addEventListener('click', () => {
+        container.removeChild(element);
+        console.log(element.dataset.id);
+        removeFromLocalStorage(element);
+
+        // updateLocalStorage(items);
+    });
 };
 
 /**
@@ -118,7 +137,8 @@ const displayAlert = (text, action) => {
  * <----- Local Storage ----->
  *
  * 01. Get notes from localStorage.
- * 02. Add new note to localStorage.
+ * 02. Update localStorage.
+ * 03. Delete note from localStorage.
 */
 
 // 01
@@ -129,8 +149,15 @@ const getLocalStorage = key => {
 };
 
 // 02
-const addToLocalStorage = value => {
-    localStorage.setItem('notes', value);
+const updateLocalStorage = value => {
+    localStorage.setItem('notes', JSON.stringify(value));
+};
+
+// 03
+const removeFromLocalStorage = element => {
+    let items = getLocalStorage('notes');
+    items = items.filter(item => item.id != element.dataset.id);
+    updateLocalStorage(items);
 };
 
 /**
