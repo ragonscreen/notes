@@ -13,8 +13,23 @@
     --clr-neutral-900: hsl(240, 6%, 10%);
     --clr-neutral-950: hsl(240, 10%, 4%);
 
-    --clr-primary: ;
-    --clr-accent: ;
+    --clr-success-100: hsl(142, 77%, 73%);
+    --clr-success-200: hsl(142, 69%, 58%);
+    --clr-success-300: hsl(142, 71%, 45%);
+    --clr-success-400: hsl(142, 76%, 36%);
+    --clr-success-500: hsl(142, 72%, 29%);
+
+    --clr-info-100: hsl(187, 92%, 69%);
+    --clr-info-200: hsl(188, 86%, 53%);
+    --clr-info-300: hsl(189, 94%, 43%);
+    --clr-info-400: hsl(192, 91%, 36%);
+    --clr-info-500: hsl(193, 82%, 31%);
+
+    --clr-danger-100: hsl(0, 94%, 82%);
+    --clr-danger-200: hsl(0, 91%, 71%);
+    --clr-danger-300: hsl(0, 84%, 60%);
+    --clr-danger-400: hsl(0, 72%, 51%);
+    --clr-danger-500: hsl(0, 74%, 42%);
 
     --bxsh-100: 0 0 8px -4px var(--clr-neutral-600);
     --bxsh-200: 0 4px 12px -2px var(--clr-neutral-950);
@@ -124,8 +139,6 @@ body {
 }
 
 .btn {
-    background-color: var(--clr-neutral-400);
-    color: var(--clr-neutral-900);
     box-shadow:
         var(--bxsh-200),
         var(--bxsh-inset-200);
@@ -137,21 +150,31 @@ body {
     padding: 0.5em 1em 0.55em;
     cursor: pointer;
 
-    transition: background-color 300ms, color 300ms;
-}
-
-.btn:hover {
-    background-color: var(--clr-neutral-500);
-    color: var(--clr-neutral-900);
-}
-
-.btn:active {
-    background-color: var(--clr-neutral-600);
+    transition:
+        background-color 300ms,
+        color 300ms,
+        border-color 300ms;
 }
 
 .btn:focus-visible {
     outline: 2px solid var(--clr-neutral-200);
     outline-offset: 2px;
+}
+
+.btn-new-note {
+    background-color: var(--clr-info-500);
+    color: var(--clr-info-100);
+    border: 1px solid var(--clr-info-500);
+}
+
+.btn-new-note:hover {
+    background-color: var(--clr-info-400);
+    color: var(--clr-neutral-200);
+    border: 1px solid var(--clr-info-300);
+}
+
+.btn-new-note:active {
+    background-color: var(--clr-info-500);
 }
 
 .btn-new-note__icon {
@@ -227,6 +250,13 @@ main {
     margin-top: -0.35rem;
     font-size: var(--fz-300);
     line-height: 1.4em;
+    word-wrap: break-word;
+
+    /* hide overflowing text */
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow-y: hidden;
 }
 
 .note__content {
@@ -252,12 +282,17 @@ main {
     position: absolute;
     top: 0.75rem;
     right: 1rem;
+    z-index: 2;
 
     transition: opacity 200ms;
 }
 
 .note:hover .note__delete-btn {
-    opacity: 0.9;
+    opacity: 1;
+}
+
+.note__delete-btn:focus-visible {
+    opacity: 1;
 }
 
 .fa-trash-can {
@@ -268,7 +303,7 @@ main {
 }
 
 .fa-trash-can:hover {
-    color: var(--clr-neutral-400);
+    color: var(--clr-danger-300);
 }
 
 /* New note */
@@ -323,12 +358,14 @@ main {
     box-shadow:
         var(--bxsh-100),
         var(--bxsh-inset-100);
+    max-height: 10vh;
     margin-top: 0.25rem;
     border: 1px solid var(--clr-neutral-700);
     border-radius: 12px;
     padding: 0.5rem 1rem;
     font-size: var(--fz-300);
     word-wrap: break-word;
+    overflow-y: auto;
 }
 
 .note-modal__content-desc {
@@ -358,6 +395,30 @@ main {
     margin-top: 1rem;
 }
 
+.btn-cancel {
+    background-color: var(--clr-danger-500);
+    color: var(--clr-danger-100);
+    border: 1px solid var(--clr-danger-500);
+}
+
+.btn-cancel:hover {
+    background-color: var(--clr-danger-400);
+    color: var(--clr-neutral-200);
+    border: 1px solid var(--clr-danger-300);
+}
+
+.btn-save {
+    background-color: var(--clr-success-500);
+    color: var(--clr-success-100);
+    border: 1px solid var(--clr-success-500);
+}
+
+.btn-save:hover {
+    background-color: var(--clr-success-400);
+    color: var(--clr-neutral-200);
+    border: 1px solid var(--clr-success-300);
+}
+
 .alert {
     background-color: var(--clr-neutral-400);
     color: var(--clr-neutral-900);
@@ -379,23 +440,23 @@ main {
     transition: transform 500ms;
 }
 
-/* .alert-success {
+.alert-success {
     background-color: var(--clr-success-100);
-    color: var(--clr-neutral-1000);
+    color: var(--clr-success-500);
     border: 1px solid var(--clr-success-300);
 }
 
 .alert-info {
     background-color: var(--clr-info-100);
-    color: var(--clr-neutral-1000);
+    color: var(--clr-info-500);
     border: 1px solid var(--clr-info-300);
 }
 
 .alert-danger {
     background-color: var(--clr-danger-100);
-    color: var(--clr-neutral-1000);
+    color: var(--clr-danger-500);
     border: 1px solid var(--clr-danger-300);
-} */
+}
 
 .alert-visible {
     transform: translate(0, -11rem);

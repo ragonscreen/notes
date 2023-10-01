@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
     items.forEach(item => {
         DATABASE.push(item);
     });
-    console.log(DATABASE);
+    // console.log(DATABASE);
     displayNotes();
 });
 
@@ -38,13 +38,13 @@ btnCancel.addEventListener('click', () => {
 btnSave.addEventListener('click', () => {
     createNewNote();
     updateLocalStorage(DATABASE);
-    displayAlert('note created', 'success');
     noteModal.close();
 });
 
 const displayNotes = () => {
     DATABASE.forEach(item => {
         createNoteElement(item.id, item.title, item.content);
+        displayAlert('notes loaded', 'success');
     });
 };
 
@@ -53,13 +53,14 @@ const displayNotes = () => {
  * Also checks and validates the text content.
 */
 
+const noteModalHeader = document.querySelector('.note-modal__header');
 const noteModalTitle = document.querySelector('.note-modal__title');
 const noteModalContent = document.querySelector('.note-modal__content');
 const createNewNote = () => {
     const noteId = new Date().getTime();
     let noteTitle = validateContent(noteModalTitle.innerText);
     let noteContent = validateContent(noteModalContent.innerText);
-    console.log(noteContent);
+    // console.log(noteContent);
 
     if (noteContent) {
         createNoteElement(noteId, noteTitle, noteContent);
@@ -71,7 +72,9 @@ const createNewNote = () => {
         }
 
         DATABASE.push(noteInfo);
-        console.log(DATABASE);
+        // console.log(DATABASE);
+    } else {
+        displayAlert('please enter a valid note', 'danger');
     }
 };
 
@@ -79,7 +82,7 @@ const createNewNote = () => {
  * Creates a note element. (`div` with a class of `note` and
  * a unique `data-id`). Based on content, also checks whether
  * the note created should be large. Along with that, adds
- * delete functionality to each note.
+ * delete and edit functionality to each note.
 */
 
 const container = document.querySelector('.container');
@@ -99,7 +102,30 @@ const createNoteElement = (id, title, content) => {
     container.prepend(element);
     const elementContent = element.querySelector('.note__content');
     checkNoteLength(elementContent);
+    displayAlert('note created', 'success');
     deleteNote(element);
+    element.addEventListener('click', () => {
+        editNote(element);
+    });
+};
+
+/**
+ * Edits a note.
+*/
+
+const editNote = element => {
+    // console.log(element);
+    noteModal.showModal();
+    noteModalHeader.textContent = 'edit note';
+    noteModalTitle.innerText = element.querySelector('.note__title').innerText;
+    noteModalContent.innerText = element.querySelector('.note__content').innerText;
+    btnSave.addEventListener('click', () => {
+        removeFromLocalStorage(element);
+        container.removeChild(element); // not the best practice
+        // but who cares lol everything works
+        // will fix in a future version
+        displayAlert('note edited', 'success');
+    });
 };
 
 /**
@@ -108,7 +134,9 @@ const createNoteElement = (id, title, content) => {
 
 const deleteNote = element => {
     const deleteBtn = element.querySelector('.note__delete-btn');
-    deleteBtn.addEventListener('click', () => {
+    deleteBtn.addEventListener('click', e => {
+        e.stopPropagation(); // so that pressing the delete button does not
+        // fire off the edit event listener which is on the whole card
         container.removeChild(element);
         removeFromLocalStorage(element);
         displayAlert('note deleted', 'danger');
@@ -193,6 +221,7 @@ const validateContent = text => {
 
 // 02
 const resetNote = () => {
+    noteModalHeader.textContent = 'new note';
     noteModalTitle.textContent = '';
     noteModalContent.textContent = '';
 };
