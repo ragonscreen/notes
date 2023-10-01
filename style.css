@@ -345,6 +345,7 @@ main {
     border: 1px solid var(--clr-neutral-400);
     border-radius: 8px;
     padding: 0.5rem 1rem;
+    text-transform: capitalize;
 
     position: fixed;
     bottom: -10rem;
